@@ -1,254 +1,510 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
-  <meta charset="UTF-8">
-  <title>Home - Demo</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0f3460;
-      margin: 0;
-      padding: 0;
-      color: #eaeaea;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #16213e;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    h1 {
-      text-align: center;
-      color: #ffffff;
-      font-size: 28px;
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
-    
-    .nav-header {
-      background-color: #16213e;
-      padding: 15px 0;
-      text-align: center;
-    }
-
-    .nav-header ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .nav-header ul li {
-      display: inline;
-      margin: 0 15px;
-    }
-
-    .nav-header ul li a {
-      text-decoration: none;
-      color: #ffffff;
-      font-weight: bold;
-      font-size: 18px;
-      transition: color 0.3s;
-    }
-
-    .nav-header ul li a:hover {
-      color: #66fcf1;
-    }
-
-    
-    .hero {
-      background-image: url('/images/background.jpg'); 
-      background-size: cover;
-      background-position: center;
-      height: 250px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: #ffffff;
-      font-size: 32px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    
-    main {
-      text-align: center;
-      margin-bottom: 10px;
-      font-size: 18px;
-      color: #dddddd;
-    }
-
-   
-    .section {
-      margin: 20px auto;
-      max-width: 1100px;
-      text-align: center;
-    }
-
-    .section h2 {
-      font-size: 24px;
-      color: #ffffff;
-      margin-bottom: 15px;
-      border-bottom: 2px solid #66fcf1;
-      display: inline-block;
-      padding-bottom: 5px;
-    }
-
-    
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px 0;
-    }
-
-    .product {
-      background: #1a1f3b;
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-    }
-
-    .product:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    }
-
-    .product img {
-      width: 100%;
-      height: 250px;
-      object-fit: contain;
-      background-color: #fff;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-
-    .product h2 {
-      font-size: 1.3em;
-      margin: 5px 0;
-      color: #66fcf1;
-      font-weight: 500;
-      min-height: 40px; 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .product .price {
-      font-size: 1.2em;
-      font-weight: 600;
-      margin: 10px 0;
-      color: #ffffff;
-    }
-
-    .product .button-container {
-      margin-top: auto;
-    }
-
-    .product button {
-      background-color: #45a29e;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: 600;
-      transition: 0.3s ease-in-out;
-      display: inline-block;
-      width: 90%;
-      margin-top: 10px;
-    }
-
-    .product button:hover {
-      background-color: #66fcf1;
-      color: #16213e;
-    }
-
-    
-    footer {
-      background-color: #16213e;
-      text-align: center;
-      padding: 10px;
-      font-size: 14px;
-      width: 100%;
-      color: #ffffff;
-    }
-
-    footer a {
-      color: #66fcf1;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <meta charset="UTF-8">
+    <title>Home - Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            margin: 0;
+            padding: 0;
+            color: #f8fafc;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* Smooth scrolling */
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Navigation */
+        
+        .nav-header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .nav-header ul {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+        
+        .nav-header ul li {
+            position: relative;
+        }
+        
+        .nav-header ul li a {
+            text-decoration: none;
+            color: #e2e8f0;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-header ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .nav-header ul li a:hover::before {
+            left: 100%;
+        }
+        
+        .nav-header ul li a:hover {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+        }
+        /* Hero Section */
+        
+        .hero {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.8) 0%, rgba(30, 41, 59, 0.8) 100%), url('/images/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 60vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(15, 23, 42, 0.3) 100%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 0.6;
+            }
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        /* Main Content */
+        
+        main {
+            text-align: center;
+            padding: 3rem 1rem;
+            font-size: 1.125rem;
+            color: #cbd5e1;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        /* Section */
+        
+        .section {
+            margin: 4rem auto;
+            max-width: 1200px;
+            padding: 0 1rem;
+            text-align: center;
+        }
+        
+        .section h2 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 3rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            animation: slideInFromLeft 1s ease-out 0.5s both;
+        }
+        
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 2px;
+            animation: expandWidth 1s ease-out 1s both;
+        }
+        
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes expandWidth {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80px;
+            }
+        }
+        /* Product Grid */
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        
+        .product {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out both;
+        }
+        
+        .product:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .product:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .product:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        
+        .product:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+        
+        .product::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.6s;
+        }
+        
+        .product:hover::before {
+            left: 100%;
+        }
+        
+        .product:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+            border-color: rgba(59, 130, 246, 0.3);
+        }
+        
+        .product img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 16px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product:hover img {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product h2 {
+            font-size: 1.25rem;
+            margin: 0.5rem 0;
+            color: #3b82f6;
+            font-weight: 600;
+            min-height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+        
+        .product:hover h2 {
+            color: #60a5fa;
+        }
+        
+        .product .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            color: #ffffff;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .product .button-container {
+            margin-top: auto;
+        }
+        
+        .product button {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: #ffffff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-block;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .product button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .product button:hover::before {
+            left: 100%;
+        }
+        
+        .product button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+        
+        .product button:active {
+            transform: translateY(0);
+        }
+        /* Footer */
+        
+        footer {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.1);
+        }
+        
+        footer p {
+            margin: 0.5rem 0;
+            color: #cbd5e1;
+            transition: color 0.3s ease;
+        }
+        
+        footer a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        footer a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        footer a:hover::after {
+            width: 100%;
+        }
+        
+        footer a:hover {
+            color: #60a5fa;
+            text-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+        }
+        /* Responsive Design */
+        
+        @media (max-width: 768px) {
+            .nav-header ul {
+                gap: 1rem;
+            }
+            .nav-header ul li a {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            .hero {
+                height: 50vh;
+                min-height: 300px;
+            }
+            .section h2 {
+                font-size: 2rem;
+            }
+            .product-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+        /* Loading Animation */
+        
+        .loading {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        /* Smooth transitions for all interactive elements */
+        
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+        }
+    </style>
 </head>
+
 <body>
 
- 
-  <nav class="nav-header">
-    <ul>
-      <li><a th:href="@{/home}">Home</a></li>
-      <li><a th:href="@{/shop}">Products</a></li>
-      <li><a th:href="@{/orderHistory}">Your Order History</a></li>
-      <li><a th:href="@{/cart}">View Cart</a></li>
-      <li><a th:href="@{/login}">Log out</a></li>
-      <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-        <a th:href="@{/admin}">Admin Dashboard</a>
-      </li>
-    </ul>
-  </nav>
 
-  
-  <div class="hero">
-    It is an honour to have you visit my lovely store of exquisite products!!!
-  </div>
+    <nav class="nav-header">
+        <ul>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/shop}">Products</a></li>
+            <li><a th:href="@{/orderHistory}">Your Order History</a></li>
+            <li><a th:href="@{/cart}">View Cart</a></li>
+            <li><a th:href="@{/login}">Log out</a></li>
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{/admin}">Admin Dashboard</a>
+            </li>
+        </ul>
+    </nav>
 
-  
-  <main>
-    <p>Have a gander at the items that are currently flying off the shelves at the moment!!</p>
-  </main>
 
-  
-  <section class="section">
-    <h2>!! Hot products !!</h2>
-    <div class="product-grid">
-      <div class="product" th:each="product : ${featuredProducts}">
-        <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/250' : product.imageUrl}" alt="Product Image">
-        <h2 th:text="${product.name}">Product Name</h2>
-        <div class="price" th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}">€0.00</div>
-        <div class="button-container">
-          <button th:attr="onclick='openModal(' + ${product.id} + ')'" >More details!</button>
-        </div>
-      </div>
+    <div class="hero">
+        <h1>Welcome to Our Premium Marketplace</h1>
+        <br>
+
     </div>
-  </section>
 
-  
-  <footer>
-    <p>Created by yours truly, <strong>Jamie Parke</strong></p>
-    <p>Phone num: <a href="tel:+353853438445">085 343 8445</a></p>
-    <p>Hit me up, Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
-    <p>
-      <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
-    </p>
-  </footer>
+
+    <main>
+        <p>Explore our carefully selected collection of high-quality products, designed to enhance your lifestyle and meet your needs with style and functionality.</p>
+    </main>
+
+
+    <section class="section">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+            <div class="product" th:each="product : ${featuredProducts}">
+                <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/250' : product.imageUrl}" alt="Product Image">
+                <h2 th:text="${product.name}">Product Name</h2>
+                <div class="price" th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}">€0.00</div>
+                <div class="button-container">
+                    <button th:attr="onclick='openModal(' + ${product.id} + ')'">View Details</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer>
+        <p>&copy; 2024 Premium Marketplace. All rights reserved.</p>
+        <p>Contact: <a href="tel:+353853438445">+353 85 343 8445</a></p>
+        <p>Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
+        <p>
+            <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Customer Support</a>
+        </p>
+    </footer>
 
 </body>
+
 </html>

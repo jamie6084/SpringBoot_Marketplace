@@ -1,252 +1,263 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Your Cart</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
-  <style>
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "Poppins", sans-serif;
-      background: #0f1a2e;
-      color: #ffffff;
-      text-align: center;
-    }
-
-    
-    .nav-header {
-      background-color: #16213e;
-      padding: 15px 0;
-      text-align: center;
-    }
-
-    .nav-header ul {
-      list-style-type: none;
-      padding: 0;
-    }
-
-    .nav-header ul li {
-      display: inline;
-      margin: 0 15px;
-    }
-
-    .nav-header ul li a {
-      text-decoration: none;
-      color: #ffffff;
-      font-weight: bold;
-      font-size: 18px;
-      transition: color 0.3s;
-    }
-
-    .nav-header ul li a:hover {
-      color: #66fcf1;
-    }
-
-    
-    .container {
-      max-width: 1000px;
-      margin: 40px auto;
-      background: #16213e;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-    }
-
-    h1 {
-      font-size: 28px;
-      color: #66fcf1;
-      margin-bottom: 15px;
-    }
-
-    
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-
-    table, th, td {
-      border: 1px solid #0f3460;
-    }
-
-    th, td {
-      padding: 16px;
-      text-align: center;
-      font-size: 18px;
-    }
-
-    th {
-      background: #0f3460;
-      color: #ffffff;
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-
-    tr:nth-child(even) {
-      background: #1a2a4a;
-    }
-
-    tr:hover {
-      background: #223b6d;
-    }
-
-    
-    .quantity-input {
-      width: 60px;
-      padding: 8px;
-      text-align: center;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-    }
-
-    
-    .btn {
-      padding: 10px 16px;
-      border: none;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .update-btn {
-      background-color: #ffc107;
-      color: #000;
-      font-weight: bold;
-    }
-
-    .update-btn:hover {
-      background-color: #e0a800;
-    }
-
-    .remove-btn {
-      background-color: #ff4d4d;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .remove-btn:hover {
-      background-color: #cc0000;
-    }
-
-    .checkout-btn {
-      background-color: #45a29e;
-      color: #0b0c10;
-      font-weight: bold;
-      font-size: 20px;
-      width: 100%;
-      padding: 16px;
-      margin-top: 20px;
-      border-radius: 8px;
-    }
-
-    .checkout-btn:hover {
-      background-color: #66fcf1;
-      color: #16213e;
-    }
-
-    
-    footer {
-      background-color: #16213e;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      width: 100%;
-      color: #ffffff;
-      margin-top: 30px;
-    }
-
-    footer a {
-      color: #66fcf1;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+            color: #f8fafc;
+        }
+        
+        .nav-header {
+            background: rgba(15, 23, 42, .95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(148, 163, 184, .12);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-header ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-header a {
+            color: #e2e8f0;
+            text-decoration: none;
+            padding: .75rem 1.25rem;
+            border-radius: 12px;
+            transition: all .3s;
+        }
+        
+        .nav-header a:hover {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, .12);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, .15);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background: rgba(30, 41, 59, .85);
+            border: 1px solid rgba(148, 163, 184, .12);
+            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, .25);
+        }
+        
+        h1 {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+        
+        thead th {
+            background: rgba(15, 23, 42, .9);
+            color: #e2e8f0;
+            text-transform: none;
+            letter-spacing: .3px;
+            padding: 16px;
+            font-weight: 600;
+        }
+        
+        tbody td {
+            padding: 16px;
+            border-top: 1px solid rgba(148, 163, 184, .12);
+            color: #cbd5e1;
+        }
+        
+        tbody tr:hover {
+            background: rgba(30, 41, 59, .6);
+            transition: background .25s;
+        }
+        
+        .quantity-input {
+            width: 72px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, .25);
+            background: rgba(15, 23, 42, .6);
+            color: #e2e8f0;
+        }
+        
+        .btn {
+            padding: .65rem 1rem;
+            border: 0;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all .25s;
+        }
+        
+        .update-btn {
+            background: #fde68a;
+            color: #0f172a;
+        }
+        
+        .update-btn:hover {
+            filter: brightness(.95);
+            transform: translateY(-1px);
+        }
+        
+        .remove-btn {
+            background: #ef4444;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .remove-btn:hover {
+            filter: brightness(.95);
+            transform: translateY(-1px);
+        }
+        
+        .checkout-btn {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: #fff;
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            font-size: 1.05rem;
+            box-shadow: 0 8px 24px rgba(59, 130, 246, .35);
+        }
+        
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, .45);
+        }
+        
+        footer {
+            background: rgba(15, 23, 42, 0.95);
+            border-top: 1px solid rgba(148, 163, 184, .12);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        footer p {
+            color: #cbd5e1;
+            margin: .35rem 0;
+        }
+        
+        footer a {
+            color: #60a5fa;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        footer a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            height: 2px;
+            width: 0;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width .3s;
+        }
+        
+        footer a:hover::after {
+            width: 100%;
+        }
+    </style>
 </head>
+
 <body>
 
- 
-  <nav class="nav-header">
-    <ul>
-      <li><a th:href="@{/home}">Home</a></li>
-      <li><a th:href="@{/shop}">Products</a></li>
-      <li><a th:href="@{/orderHistory}">Your Order History</a></li>
-      <li><a th:href="@{/cart}">View Cart</a></li>
-      <li><a th:href="@{/login}">Log out</a></li>
-      <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-        <a th:href="@{/admin}">Admin Dashboard</a>
-      </li>
-    </ul>
-  </nav>
- 
-  <div class="container">
-    <h1>Your wonderful Cart filled with amazing items!</h1>
-    <table>
-      <thead>
-        <tr>
-          <th>Product</th>
-          <th>Price (in Euros)</th>
-          <th>Amount</th>
-          <th>Row item amount</th>
-          <th>Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr th:each="item : ${cartItems}">
-          <td th:text="${item.productName}">Product name</td>
-          <td th:text="'€' + ${#numbers.formatDecimal(item.price, 1, 2)}">€0.00</td>
-          
-          
-          <td>
-            <form th:action="@{/cart/update}" method="post" style="display: flex; justify-content: center; gap: 10px;">
-              <input type="hidden" name="productId" th:value="${item.productId}" />
-              <input type="number" name="quantity" th:value="${item.quantity}" min="1" class="quantity-input" />
-              <button type="submit" class="btn update-btn">Update!!</button>
-            </form>
-          </td>
 
-          <td th:text="'€' + ${#numbers.formatDecimal(item.price * item.quantity, 1, 2)}">€0.00</td>
+    <nav class="nav-header">
+        <ul>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/shop}">Products</a></li>
+            <li><a th:href="@{/orderHistory}">Your Order History</a></li>
+            <li><a th:href="@{/cart}">View Cart</a></li>
+            <li><a th:href="@{/login}">Log out</a></li>
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{/admin}">Admin Dashboard</a>
+            </li>
+        </ul>
+    </nav>
 
-          <!-- nearly forgot to add in this part of project,,,,, -->
-          <td>
-            <a th:href="@{'/cart/remove/' + ${item.productId}}" class="btn remove-btn">Remove</a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="container">
+        <h1>Your Cart</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th>Options</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="item : ${cartItems}">
+                    <td th:text="${item.productName}">Product name</td>
+                    <td th:text="'€' + ${#numbers.formatDecimal(item.price, 1, 2)}">€0.00</td>
 
-    <h2 style="margin-top: 20px;" th:text="'Total: €' + ${#numbers.formatDecimal(totalAmount, 1, 2)}">Total amount in cart: €0.00</h2>
-    
-    
-    <form th:action="@{/cart/checkout}" method="post">
-      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-      <button type="submit" class="btn checkout-btn">--Place Order--</button>
-    </form>
-  </div>
 
-  
-  <footer>
-    <p>Created by yours truly, <strong>Jamie Parke</strong></p>
-    <p>Phone num: <a href="tel:+353853438445">085 343 8445</a></p>
-    <p>Hit me up, Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
-    <p>
-      <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
-    </p>
-  </footer>
+                    <td>
+                        <form th:action="@{/cart/update}" method="post" style="display: flex; justify-content: center; gap: 10px;">
+                            <input type="hidden" name="productId" th:value="${item.productId}" />
+                            <input type="number" name="quantity" th:value="${item.quantity}" min="1" class="quantity-input" />
+                            <button type="submit" class="btn update-btn">Update</button>
+                        </form>
+                    </td>
+
+                    <td th:text="'€' + ${#numbers.formatDecimal(item.price * item.quantity, 1, 2)}">€0.00</td>
+
+                    <!-- nearly forgot to add in this part of project,,,,, -->
+                    <td>
+                        <a th:href="@{'/cart/remove/' + ${item.productId}}" class="btn remove-btn">Remove</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 style="margin-top: 20px;" th:text="'Total: €' + ${#numbers.formatDecimal(totalAmount, 1, 2)}">Total amount in cart: €0.00</h2>
+
+
+        <form th:action="@{/cart/checkout}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit" class="btn checkout-btn">Place Order</button>
+        </form>
+    </div>
+
+
+    <footer>
+        <p>&copy; 2024 Premium Marketplace. All rights reserved.</p>
+        <p>Contact: <a href="tel:+353853438445">+353 85 343 8445</a></p>
+        <p>Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
+        <p><a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Customer Support</a></p>
+    </footer>
 
 </body>
+
 </html>
-
-

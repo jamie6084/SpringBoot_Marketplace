@@ -4,6 +4,22 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+# Application properties with sensitive data
+src/main/resources/application.properties
+src/main/resources/application-prod.properties
+
+# Database dumps
+*.sql
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
 ### STS ###
 .apt_generated
 .classpath

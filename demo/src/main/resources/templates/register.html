@@ -1,143 +1,148 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Register - Demo</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #16213e;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    .register-container {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      width: 350px;
-      text-align: center;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    h2 {
-      color: #fff;
-      font-size: 24px;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    input[type="text"], 
-    input[type="password"], 
-    select {
-      padding: 12px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 8px;
-      width: 100%;
-      font-size: 16px;
-      background: rgba(255, 255, 255, 0.2);
-      color: #fff;
-      text-align: center;
-      outline: none;
-      transition: background 0.3s ease-in-out;
-    }
-
-    input::placeholder {
-      color: #d1d1d1;
-    }
-
-    input:focus, select:focus {
-      background: rgba(255, 255, 255, 0.3);
-    }
-
-    select {
-      appearance: none;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    button {
-      padding: 12px;
-      background-color: #66fcf1;
-      color: #16213e;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: 600;
-      transition: 0.3s ease-in-out;
-      width: 100%;
-      text-align: center;
-      margin-top: 10px;
-    }
-
-    button:hover {
-      background-color: #45a29e;
-      color: #fff;
-    }
-
-    .error-message {
-      color: #fff;
-      background: rgba(255, 0, 0, 0.7);
-      padding: 10px;
-      border-radius: 6px;
-      margin-bottom: 10px;
-      font-weight: 500;
-    }
-
-    .login-link {
-      margin-top: 15px;
-      font-size: 14px;
-      color: #eaeaea;
-    }
-
-    .login-link a {
-      color: #66fcf1;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.3s ease-in-out;
-    }
-
-    .login-link a:hover {
-      color: #45a29e;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Register - Demo</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            color: #e2e8f0;
+        }
+        
+        .register-container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        h2 {
+            color: #fff;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        input[type="text"],
+        input[type="password"],
+        select {
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-align: center;
+            outline: none;
+            transition: background 0.3s ease-in-out;
+        }
+        
+        input::placeholder {
+            color: #d1d1d1;
+        }
+        
+        input:focus,
+        select:focus {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        select {
+            appearance: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        button {
+            padding: 12px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all .3s;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            box-shadow: 0 6px 18px rgba(59, 130, 246, .35);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(59, 130, 246, .45);
+        }
+        
+        .error-message {
+            color: #fff;
+            background: rgba(255, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #eaeaea;
+        }
+        
+        .login-link a {
+            color: #66fcf1;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s ease-in-out;
+        }
+        
+        .login-link a:hover {
+            color: #45a29e;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="register-container">
-    <h2>Create an account !!</h2>
+    <div class="register-container">
+        <h2>Create your account</h2>
 
-    
-    <div th:if="${error}" class="error-message" th:text="${error}"></div>
 
-    <form th:action="@{/register}" method="post">
-      <input type="text" name="username" placeholder="Username" required>
-      <input type="password" name="password" placeholder="Password" required>
-      <select name="role" required>
+        <div th:if="${error}" class="error-message" th:text="${error}"></div>
+
+        <form th:action="@{/register}" method="post">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <select name="role" required>
         <option value="CUSTOMER">Customer</option>
         <option value="ADMIN">Admin</option>
       </select>
-      <button type="submit">Register</button>
-    </form>
+            <button type="submit">Register</button>
+        </form>
 
-    
-    <div class="login-link">
-      <p>Already made an account here? Then... <a th:href="@{/login}">Log in here</a></p>
+
+        <div class="login-link">
+            <p>Already have an account? <a th:href="@{/login}">Sign in</a>.</p>
+        </div>
     </div>
-  </div>
 </body>
+
 </html>

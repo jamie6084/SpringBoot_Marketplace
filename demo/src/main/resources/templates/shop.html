@@ -1,242 +1,340 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Shop</title>
-  <link rel="stylesheet" th:href="@{/css/styles.css}">
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #0f3460;
-      margin: 0;
-      padding: 0;
-      color: #eaeaea;
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 20px auto;
-      padding: 20px;
-      background: #16213e;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-
-    h1 {
-      text-align: center;
-      color: #ffffff;
-      font-size: 28px;
-      margin-bottom: 20px;
-      font-weight: 600;
-    }
-
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px 0;
-    }
-
-    .product {
-      background: #1a1f3b;
-      padding: 15px;
-      border-radius: 10px;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s, box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      height: 100%;
-    }
-
-    .product:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-    }
-
-    .product img {
-      width: 100%;
-      height: 250px;
-      object-fit: contain;
-      background-color: #fff;
-      border-radius: 5px;
-      margin-bottom: 10px;
-    }
-
-    .product h2 {
-      font-size: 1.3em;
-      margin: 5px 0;
-      color: #66fcf1;
-      font-weight: 500;
-      min-height: 40px; 
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .product .price {
-      font-size: 1.2em;
-      font-weight: 600;
-      margin: 10px 0;
-      color: #ffffff;
-    }
-
-    .product .button-container {
-      margin-top: auto;
-    }
-
-    .product button {
-      background-color: #45a29e;
-      color: #fff;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: 600;
-      transition: 0.3s ease-in-out;
-      display: inline-block;
-      width: 90%;
-      margin-top: 10px;
-    }
-
-    .product button:hover {
-      background-color: #66fcf1;
-      color: #16213e;
-    }
-
-    
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal-content {
-      background: #16213e;
-      padding: 25px;
-      border-radius: 12px;
-      max-width: 450px;
-      text-align: center;
-      color: white;
-      position: relative;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 12px;
-      right: 15px;
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .modal img {
-      width: 100%;
-      height: 250px;
-      object-fit: contain;
-      background-color: #fff;
-      margin-bottom: 12px;
-      border-radius: 6px;
-    }
-
-    .modal .product-description {
-      margin: 12px 0;
-      font-size: 15px;
-      color: #ccc;
-    }
-
-    .modal .stock {
-      font-size: 14px;
-      color: #66fcf1;
-      margin-bottom: 12px;
-    }
-
-    .modal button {
-      width: 100%;
-      margin-top: 12px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Shop</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b, #334155);
+            color: #f8fafc;
+            line-height: 1.6;
+        }
+        
+        .nav-header {
+            background: rgba(15, 23, 42, .95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(148, 163, 184, .12);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-header ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .nav-header a {
+            color: #e2e8f0;
+            text-decoration: none;
+            padding: .75rem 1.25rem;
+            border-radius: 12px;
+            transition: all .3s;
+        }
+        
+        .nav-header a:hover {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, .12);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, .15);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            margin: 2rem 0;
+            font-weight: 700;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem 0;
+        }
+        
+        .product {
+            background: rgba(30, 41, 59, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(148, 163, 184, .12);
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: all .35s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            left: -100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, .12), transparent);
+            transition: left .6s;
+        }
+        
+        .product:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, .2);
+            border-color: rgba(59, 130, 246, .35);
+        }
+        
+        .product:hover::before {
+            left: 100%;
+        }
+        
+        .product img {
+            width: 100%;
+            height: 220px;
+            object-fit: contain;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, .12);
+            margin-bottom: 1rem;
+            transition: transform .3s;
+        }
+        
+        .product:hover img {
+            transform: scale(1.04);
+        }
+        
+        .product h2 {
+            font-size: 1.15rem;
+            color: #60a5fa;
+            font-weight: 600;
+            text-align: center;
+            min-height: 3rem;
+            margin: .25rem 0 .5rem;
+        }
+        
+        .product .price {
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            margin-bottom: .75rem;
+        }
+        
+        .button-container {
+            margin-top: auto;
+        }
+        
+        .product button {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            color: #fff;
+            border: 0;
+            border-radius: 12px;
+            padding: .9rem 1.2rem;
+            width: 100%;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, .3);
+            transition: all .3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            left: -100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .25), transparent);
+            transition: left .5s;
+        }
+        
+        .product button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(59, 130, 246, .4);
+        }
+        
+        .product button:hover::before {
+            left: 100%;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            background: rgba(2, 6, 23, .65);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: rgba(30, 41, 59, .95);
+            color: #e2e8f0;
+            border: 1px solid rgba(148, 163, 184, .15);
+            border-radius: 18px;
+            padding: 1.5rem;
+            width: min(92vw, 520px);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, .35);
+            position: relative;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            font-size: 22px;
+            cursor: pointer;
+            color: #94a3b8;
+        }
+        
+        .close-btn:hover {
+            color: #e2e8f0;
+        }
+        
+        .modal img {
+            width: 100%;
+            height: 240px;
+            object-fit: contain;
+            background: #fff;
+            border-radius: 12px;
+            margin-bottom: .75rem;
+        }
+        
+        .modal .product-description {
+            color: #cbd5e1;
+            font-size: .95rem;
+            margin: .5rem 0 1rem;
+        }
+        
+        .modal .stock {
+            color: #93c5fd;
+            font-size: .9rem;
+        }
+        
+        .modal button {
+            margin-top: 1rem;
+        }
+        
+        footer {
+            background: rgba(15, 23, 42, 0.95);
+            border-top: 1px solid rgba(148, 163, 184, .12);
+            padding: 1.5rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        footer p {
+            color: #cbd5e1;
+            margin: .35rem 0;
+        }
+        
+        footer a {
+            color: #60a5fa;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        footer a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -2px;
+            height: 2px;
+            width: 0;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width .3s;
+        }
+        
+        footer a:hover::after {
+            width: 100%;
+        }
+    </style>
 </head>
+
 <body>
 
-  
-  <nav class="nav-header">
-    <ul>
-      <li><a th:href="@{/home}">Home</a></li>
-      <li><a th:href="@{/shop}">Products</a></li>
-      <li><a th:href="@{/orderHistory}">Your Order History</a></li>
-      <li><a th:href="@{/cart}">View Cart</a></li>
-      <li><a th:href="@{/login}">Log out</a></li>
-      <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
-        <a th:href="@{/admin}">Admin Dashboard</a>
-      </li>
-    </ul>
-  </nav>
 
-  
-  <div class="container">
-    <h1>My extravagant Products</h1>
-    <div class="product-grid">
-      <div class="product" th:each="product : ${products}" th:if="${!product.hidden}">
-        <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/250' : product.imageUrl}" alt="Product Image" />
-        <h2 th:text="${product.name}">Product Name</h2>
-        <div class="price" th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}">Price</div>
-        <div class="button-container">
-          <button th:attr="onclick='openModal(' + ${product.id} + ')'" >More details!</button>
+    <nav class="nav-header">
+        <ul>
+            <li><a th:href="@{/home}">Home</a></li>
+            <li><a th:href="@{/shop}">Products</a></li>
+            <li><a th:href="@{/orderHistory}">Your Order History</a></li>
+            <li><a th:href="@{/cart}">View Cart</a></li>
+            <li><a th:href="@{/login}">Log out</a></li>
+            <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+                <a th:href="@{/admin}">Admin Dashboard</a>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div class="container">
+        <h1>Shop Products</h1>
+        <div class="product-grid">
+            <div class="product" th:each="product : ${products}" th:if="${!product.hidden}">
+                <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/250' : product.imageUrl}" alt="Product Image" />
+                <h2 th:text="${product.name}">Product Name</h2>
+                <div class="price" th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}">Price</div>
+                <div class="button-container">
+                    <button th:attr="onclick='openModal(' + ${product.id} + ')'">View Details</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 
-  
-  <div th:each="product : ${products}" th:id="'modal-' + ${product.id}" class="modal">
-    <div class="modal-content">
-      <span class="close-btn" onclick="closeModal(this)">&times;</span>
-      <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/250' : product.imageUrl}" alt="Product Image" />
-      <h2 th:text="${product.name}">Product Name</h2>
-      <p class="product-description" th:text="${product.description}">Product description goes here.</p>
-      <p class="stock" th:text="'Stock: ' + ${product.stock}">Stock</p>
-      <div class="price" th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}">Price</div>
-      <form th:action="@{/cart/add}" method="post">
-        <input type="hidden" name="productId" th:value="${product.id}" />
-        <input type="hidden" name="quantity" value="1" />
-        <button type="submit">Add product to cart </button>
-      </form>
+
+    <div th:each="product : ${products}" th:id="'modal-' + ${product.id}" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal(this)">&times;</span>
+            <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/250' : product.imageUrl}" alt="Product Image" />
+            <h2 th:text="${product.name}">Product Name</h2>
+            <p class="product-description" th:text="${product.description}">Product description goes here.</p>
+            <p class="stock" th:text="'Stock: ' + ${product.stock}">Stock</p>
+            <div class="price" th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}">Price</div>
+            <form th:action="@{/cart/add}" method="post">
+                <input type="hidden" name="productId" th:value="${product.id}" />
+                <input type="hidden" name="quantity" value="1" />
+                <button type="submit">Add product to cart </button>
+            </form>
+        </div>
     </div>
-  </div>
 
-  <footer>
-    <p>Created by yours truly, <strong>Jamie Parke</strong></p>
-    <p>Phone num: <a href="tel:+353853438445">085 343 8445</a></p>
-    <p>Hit me up, Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
-    <p>
-      <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
-    </p>
-  </footer>
+    <footer>
+        <p>&copy; 2024 Premium Marketplace. All rights reserved.</p>
+        <p>Contact: <a href="tel:+353853438445">+353 85 343 8445</a></p>
+        <p>Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
+        <p><a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a> | <a href="#">Customer Support</a></p>
+    </footer>
 
-  
-  <script>
-    function openModal(productId) {
-      document.getElementById('modal-' + productId).style.display = 'flex';
-    }
 
-    function closeModal(closeButton) {
-      closeButton.parentElement.parentElement.style.display = 'none';
-    }
-  </script>
+    <script>
+        function openModal(productId) {
+            document.getElementById('modal-' + productId).style.display = 'flex';
+        }
+
+        function closeModal(closeButton) {
+            closeButton.parentElement.parentElement.style.display = 'none';
+        }
+    </script>
 
 </body>
+
 </html>
-
-
