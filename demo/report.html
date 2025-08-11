@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Online Marketplace - Project Report</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 20px;
+            padding: 20px;
+            color: #333;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #16213e;
+        }
+
+        h2 {
+            font-size: 22px;
+            margin-top: 30px;
+            color: #0f3460;
+            border-bottom: 2px solid #16213e;
+            padding-bottom: 5px;
+        }
+
+        .section {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .screenshot {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        img {
+            width: 80%;
+            border: 2px solid #16213e;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .description {
+            text-align: center;
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+            padding: 10px;
+            background-color: #ffffff;
+            border-top: 2px solid #16213e;
+        }
+
+        a {
+            color: #16213e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Online Marketplace - 22483136 Report</h1>
+    <p style="text-align: center; font-size: 18px;">Here I discuss how I achieved the requirements and my features that i have on my website.</p>
+
+    
+    <div class="section">
+        <h2>Task 1: Setting Up Maven & Docker</h2>
+        
+        <div class="description">
+            <p>I made the pom.xml file so I can use dependencies and some of them include the likes of Spring boot, mySQL, and Thymeleaf. I also have more to improve my overall project, such as being able to interact with my database and being able to connect spring boot to mySQL.
+                <br>
+                I also used Spring boot initialiser so it could create me the project structure that I needed.
+                
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/pom.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                To make my project be able to be packaged into a docker container, I added a dockerfile as you can see in the screenshot, this allows my project to be built and run inside a docker container.<br>
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/dockerfile.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                Also added the docker-compose.yml file as this allows spring boot app to interact with my database.
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/dockercompose.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                You can see me using "docker compose up --build" in my video showcasing my website at the start.
+                <br>
+                <br>
+                <br>
+            </p>
+        </div>
+    </div>
+
+   
+    <div class="section">
+        <h2>Task 2: Catalogue</h2>
+        
+        <div class="description">
+            <p>To add in a catalogue into my website, I created a products page where it lists all the products that are available.
+                <br>
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/Products.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                On that page, you can click view details which then shows a pop up of all the required details about the product. This way, it doesnt take you to another page so you can stay on the products page. You can also click "add product to cart" to add it to your cart.
+                
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/productdetail.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                All of my products for my website is stored in my database. I created a product entity which defines all the attributes such ID, name, price, description and hidden status as you need that for the admin page.
+                <br>
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/productentity.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                I also added a product repository so it can interact with my database as I needed to be able to change some of the products attributes later on.
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/productrepository.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                
+                <br>
+                <br>
+                <br>
+            </p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <h2>Task 3: Shopping Cart </h2>
+        <div class="description">
+            <p>To add a shopping cart, I needed to be able to view all items in it, edit the quantity of items, remove items and also see total price for all.
+                The user can also change the quantity of the product as when they click a new number and press the update button, it gets the new number and inputs it into the database and recalculates the total amount.
+                To remove an item from the cart all it does is just refreseh the cart without that said item.
+                <br>
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/Cart.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                Similar to the products, I created a cart entity where it had all the important info needed such as ID, product ID, quantity and price.
+                
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/cartdetail.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                Similar to above aswell, I created a cart repository so I can make changes as I needed to.
+                <br>
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/cartrepository.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+               
+                <br>
+                <br>
+                <br>
+                
+                <br>
+                <br>
+                <br>
+                
+                <br>
+                <br>
+                <br>
+            </p>
+        </div>
+    </div>
+
+  
+    <div class="section">
+        <h2>Task 4: Customer Features</h2>
+        <div class="description">
+            <p>To be able to create an account and log in using an account you created, I used Spring security. You also must create an account before accessing the website so this task was needed.
+                <br>
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/Login.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                    Each user created is stored in the users table in my database. It checks to see if that user is in it and lets you proceed if it is.
+                    As each user has its own ID, we can get its order history by using its ID as a foreign key to check the orderItems table as that also tracks ID.
+                    So basically when we want to view a users order history, the system will fetch all orders that are linked with its ID.
+                
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/OrderHistory.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+               
+                <br>
+                <br>
+                <br>
+               
+                
+            </p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <h2>Task 5: Marketplace Owner (Administrator) </h2>
+        <div class="description">
+            <p>In my admin dashboard that I created, the admin can add products, modify details of existing products, and also update the status of orders. The way I implemented how only admins can access it, is I changed the header of the websites so it only shows Admin Dashboard if the users role is Admin.
+                This page interacts with multiple tables in my database such as products, orders and users.
+                <br>
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/Home.png" alt="Home Page Screenshot">
+                <img src="src/main/resources/static/images/Admin.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                To add a new product, you fill in info into the text boxes then it runs an sql query that adds it into the database.
+                
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/AddProduct.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                To manage the orders, you click which status you want and click update which updates the orders table.
+                
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/ManageOrders.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                To manage all the products, they show by the same way in the catalogue, its looped over all the available ones. You can also edit the details by filling it out and clicking update which does an sql query which updates the database.
+                
+                <br>
+                <br>
+                <br>
+                <img src="src/main/resources/static/images/ManageProducts.png" alt="Home Page Screenshot">
+                <br>
+                <br>
+                <br>
+                
+                <br>
+                <br>
+                <br>
+                
+                <br>
+                <br>
+                <br>
+            </p>
+        </div>
+    </div>
+
+    
+    <div class="section">
+        <h2>Database Schema</h2>
+        <div class="screenshot">
+            <img src="src/main/resources/static/images/DatabaseSchema.png" alt="Database Schema Screenshot">
+        </div>
+        <div class="description">
+            <p>Here is a screenshot of my database schema.</p>
+        </div>
+    </div>
+
+    
+   
+
+   
+
+</body>
+</html>

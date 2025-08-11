@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <meta charset="UTF-8">
+  <title>Home - Demo</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f3460;
+      margin: 0;
+      padding: 0;
+      color: #eaeaea;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #16213e;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 28px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    
+    .nav-header {
+      background-color: #16213e;
+      padding: 15px 0;
+      text-align: center;
+    }
+
+    .nav-header ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .nav-header ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    .nav-header ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    .nav-header ul li a:hover {
+      color: #66fcf1;
+    }
+
+    
+    .hero {
+      background-image: url('/images/background.jpg'); 
+      background-size: cover;
+      background-position: center;
+      height: 250px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #ffffff;
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    
+    main {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 18px;
+      color: #dddddd;
+    }
+
+   
+    .section {
+      margin: 20px auto;
+      max-width: 1100px;
+      text-align: center;
+    }
+
+    .section h2 {
+      font-size: 24px;
+      color: #ffffff;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #66fcf1;
+      display: inline-block;
+      padding-bottom: 5px;
+    }
+
+    
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px 0;
+    }
+
+    .product {
+      background: #1a1f3b;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .product img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      background-color: #fff;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .product h2 {
+      font-size: 1.3em;
+      margin: 5px 0;
+      color: #66fcf1;
+      font-weight: 500;
+      min-height: 40px; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product .price {
+      font-size: 1.2em;
+      font-weight: 600;
+      margin: 10px 0;
+      color: #ffffff;
+    }
+
+    .product .button-container {
+      margin-top: auto;
+    }
+
+    .product button {
+      background-color: #45a29e;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      transition: 0.3s ease-in-out;
+      display: inline-block;
+      width: 90%;
+      margin-top: 10px;
+    }
+
+    .product button:hover {
+      background-color: #66fcf1;
+      color: #16213e;
+    }
+
+    
+    footer {
+      background-color: #16213e;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      width: 100%;
+      color: #ffffff;
+    }
+
+    footer a {
+      color: #66fcf1;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+ 
+  <nav class="nav-header">
+    <ul>
+      <li><a th:href="@{/home}">Home</a></li>
+      <li><a th:href="@{/shop}">Products</a></li>
+      <li><a th:href="@{/orderHistory}">Your Order History</a></li>
+      <li><a th:href="@{/cart}">View Cart</a></li>
+      <li><a th:href="@{/login}">Log out</a></li>
+      <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <a th:href="@{/admin}">Admin Dashboard</a>
+      </li>
+    </ul>
+  </nav>
+
+  
+  <div class="hero">
+    It is an honour to have you visit my lovely store of exquisite products!!!
+  </div>
+
+  
+  <main>
+    <p>Have a gander at the items that are currently flying off the shelves at the moment!!</p>
+  </main>
+
+  
+  <section class="section">
+    <h2>!! Hot products !!</h2>
+    <div class="product-grid">
+      <div class="product" th:each="product : ${featuredProducts}">
+        <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/250' : product.imageUrl}" alt="Product Image">
+        <h2 th:text="${product.name}">Product Name</h2>
+        <div class="price" th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}">€0.00</div>
+        <div class="button-container">
+          <button th:attr="onclick='openModal(' + ${product.id} + ')'" >More details!</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <footer>
+    <p>Created by yours truly, <strong>Jamie Parke</strong></p>
+    <p>Phone num: <a href="tel:+353853438445">085 343 8445</a></p>
+    <p>Hit me up, Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
+    <p>
+      <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
+    </p>
+  </footer>
+
+</body>
+</html>

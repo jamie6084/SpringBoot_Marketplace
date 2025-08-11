@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    container_name: demo-db-1
+    restart: always
+    environment:
+      MYSQL_DATABASE: mydatabase
+      MYSQL_ROOT_PASSWORD: forest29
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql  # added this in so database wont recet every time i log in
+    networks:
+      - demo_network
+
+  app:
+    build: .
+    container_name: demo-app-1
+    restart: always
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://demo-db-1:3306/mydatabase
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: forest29
+    ports:
+      - "8080:8080"
+    networks:
+      - demo_network
+
+volumes:
+  mysql_data:  # name o data
+
+networks:
+  demo_network:
+
+
+

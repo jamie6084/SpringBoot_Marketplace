@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 20px auto;
+      background: #fff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    h2 {
+      color: #16213e;
+      border-bottom: 3px solid #16213e;
+      padding-bottom: 8px;
+      margin-top: 30px;
+      font-size: 22px;
+      text-align: center;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+
+    th, td {
+      padding: 14px;
+    }
+
+    th {
+      background-color: #16213e;
+      color: white;
+      font-size: 16px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+      transition: 0.3s;
+    }
+
+    input, select {
+      width: 90%;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    button {
+      background-color: #16213e;
+      color: white;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: block;
+      width: 80%;
+      margin: auto;
+    }
+
+    button:hover {
+      background-color: #0f1a2e;
+    }
+
+    .form-section {
+      background: #ecf0f1;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 30px;
+    }
+
+    .order-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .order-card {
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+      width: calc(33.33% - 20px);
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    .order-card h3 {
+      margin: 0;
+      color: #16213e;
+    }
+
+    .order-card p {
+      font-size: 14px;
+      margin: 8px 0;
+      color: #2c3e50;
+    }
+
+    .order-items {
+      background: #ecf0f1;
+      padding: 10px;
+      border-radius: 6px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .order-items ul {
+      padding: 0;
+      list-style: none;
+    }
+
+    .order-items li {
+      background: #ffffff;
+      padding: 8px;
+      margin-bottom: 5px;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+      display: flex;
+      justify-content: center;
+    }
+
+    
+    @media (max-width: 1024px) {
+      .order-card {
+        width: calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .order-card {
+        width: 100%;
+      }
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center; 
+      gap: 8px; 
+    }
+    
+    .checkbox-container input {
+      width: 16px;
+      height: 16px;
+      margin: 0; 
+    }
+    
+    .checkbox-container label {
+      font-size: 16px;
+      cursor: pointer; 
+    }
+    
+    
+    
+  </style>
+</head>
+<body>
+
+  
+  <nav class="nav-header">
+    <ul>
+      <li><a th:href="@{/home}">Home</a></li>
+      <li><a th:href="@{/shop}">Products</a></li>
+      <li><a th:href="@{/orderHistory}">Your Order History</a></li>
+      <li><a th:href="@{/cart}">View Cart</a></li>
+      <li><a th:href="@{/login}">Log out</a></li>
+      <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <a th:href="@{/admin}">Admin Dashboard</a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    
+    <div class="form-section">
+      <h2>Add new product!</h2>
+      <form th:action="@{/admin/addProduct}" method="post">
+        <input type="text" name="name" placeholder="Products name" required />
+        <input type="text" name="description" placeholder="Description" required />
+        <input type="number" name="price" step="0.01" placeholder="Price in Euros" required />
+        <input type="number" name="stock" placeholder="Amount of stock" required />
+        <input type="text" name="imageUrl" placeholder="Image url path. (must be /images/(name of the image))" />
+        <div class="checkbox-container">
+          <input type="checkbox" id="hidden" name="hidden" value="true">
+          <label for="hidden">Click to hide it from the shop</label>
+        </div>
+        
+        
+        
+        <button type="submit">Add the product!!</button>
+      </form>
+    </div>
+
+   
+<div class="form-section">
+  <h2>Manage all products</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price (€)</th>
+        <th>Amount</th>
+        <th>Hidden?</th>
+        <th>Change details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="product : ${products}">
+        <td th:text="${product.id}"></td>
+        <td th:text="${product.name}"></td>
+        <td>
+          <form th:action="@{/admin/updateProduct}" method="post">
+            <input type="hidden" name="productId" th:value="${product.id}" />
+            <input type="text" name="description" th:value="${product.description}" required />
+        </td>
+        <td><input type="number" name="price" step="0.01" th:value="${product.price}" required /></td>
+        <td><input type="number" name="stock" th:value="${product.stock}" required /></td>
+        <td>
+          <select name="hidden">
+            <option th:value="false" th:selected="${!product.hidden}">No</option>
+            <option th:value="true" th:selected="${product.hidden}">Yes</option>
+          </select>
+        </td>
+        <td><button type="submit">Update</button></td>
+        </form>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+    
+    <h2>Manage all orders</h2>
+    <div class="order-cards">
+      <div class="order-card" th:each="order : ${orders}">
+        <h3>Order #<span th:text="${order.id}"></span></h3>
+        <p><strong>Customer:</strong> <span th:text="${order.customer.username}"></span></p>
+        <p><strong>Order Date:</strong> <span th:text="${order.orderDate}"></span></p>
+        
+        <div class="order-items">
+          <ul>
+            <li th:each="item : ${order.orderItems}">
+              <span th:text="${item.product.name}"></span> - <strong th:text="${item.quantity}"></strong>
+            </li>
+          </ul>
+        </div>
+
+        <form th:action="@{/admin/updateOrderStatus}" method="post">
+          <input type="hidden" name="orderId" th:value="${order.id}" />
+          <select name="newStatus">
+            <option>Order has been placed</option>
+            <option>Order has now been confirmed</option>
+            <option>Order is now being prepared for shipping</option>
+            <option>The order is now on the way to you!</option>
+            <option>The order has now arrived at destination</option>
+          </select>
+          <button type="submit">Update</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <footer>
+    <p>Created by yours truly, <strong>Jamie Parke</strong></p>
+    <p>Phone num: <a href="tel:+353853438445">085 343 8445</a></p>
+    <p>Hit me up, Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
+    <p>
+      <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
+    </p>
+  </footer>
+</body>
+</html>

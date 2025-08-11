@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f3460;
+      margin: 0;
+      padding: 0;
+      color: #eaeaea;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #16213e;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 28px;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px 0;
+    }
+
+    .product {
+      background: #1a1f3b;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .product img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      background-color: #fff;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .product h2 {
+      font-size: 1.3em;
+      margin: 5px 0;
+      color: #66fcf1;
+      font-weight: 500;
+      min-height: 40px; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .product .price {
+      font-size: 1.2em;
+      font-weight: 600;
+      margin: 10px 0;
+      color: #ffffff;
+    }
+
+    .product .button-container {
+      margin-top: auto;
+    }
+
+    .product button {
+      background-color: #45a29e;
+      color: #fff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      transition: 0.3s ease-in-out;
+      display: inline-block;
+      width: 90%;
+      margin-top: 10px;
+    }
+
+    .product button:hover {
+      background-color: #66fcf1;
+      color: #16213e;
+    }
+
+    
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #16213e;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 450px;
+      text-align: center;
+      color: white;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 12px;
+      right: 15px;
+      font-size: 22px;
+      cursor: pointer;
+    }
+
+    .modal img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      background-color: #fff;
+      margin-bottom: 12px;
+      border-radius: 6px;
+    }
+
+    .modal .product-description {
+      margin: 12px 0;
+      font-size: 15px;
+      color: #ccc;
+    }
+
+    .modal .stock {
+      font-size: 14px;
+      color: #66fcf1;
+      margin-bottom: 12px;
+    }
+
+    .modal button {
+      width: 100%;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav class="nav-header">
+    <ul>
+      <li><a th:href="@{/home}">Home</a></li>
+      <li><a th:href="@{/shop}">Products</a></li>
+      <li><a th:href="@{/orderHistory}">Your Order History</a></li>
+      <li><a th:href="@{/cart}">View Cart</a></li>
+      <li><a th:href="@{/login}">Log out</a></li>
+      <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <a th:href="@{/admin}">Admin Dashboard</a>
+      </li>
+    </ul>
+  </nav>
+
+  
+  <div class="container">
+    <h1>My extravagant Products</h1>
+    <div class="product-grid">
+      <div class="product" th:each="product : ${products}" th:if="${!product.hidden}">
+        <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/250' : product.imageUrl}" alt="Product Image" />
+        <h2 th:text="${product.name}">Product Name</h2>
+        <div class="price" th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}">Price</div>
+        <div class="button-container">
+          <button th:attr="onclick='openModal(' + ${product.id} + ')'" >More details!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div th:each="product : ${products}" th:id="'modal-' + ${product.id}" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal(this)">&times;</span>
+      <img th:src="${#strings.isEmpty(product.imageUrl) ? 'https://via.placeholder.com/250' : product.imageUrl}" alt="Product Image" />
+      <h2 th:text="${product.name}">Product Name</h2>
+      <p class="product-description" th:text="${product.description}">Product description goes here.</p>
+      <p class="stock" th:text="'Stock: ' + ${product.stock}">Stock</p>
+      <div class="price" th:text="'€' + ${#numbers.formatDecimal(product.price, 1, 2)}">Price</div>
+      <form th:action="@{/cart/add}" method="post">
+        <input type="hidden" name="productId" th:value="${product.id}" />
+        <input type="hidden" name="quantity" value="1" />
+        <button type="submit">Add product to cart </button>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>Created by yours truly, <strong>Jamie Parke</strong></p>
+    <p>Phone num: <a href="tel:+353853438445">085 343 8445</a></p>
+    <p>Hit me up, Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
+    <p>
+      <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
+    </p>
+  </footer>
+
+  
+  <script>
+    function openModal(productId) {
+      document.getElementById('modal-' + productId).style.display = 'flex';
+    }
+
+    function closeModal(closeButton) {
+      closeButton.parentElement.parentElement.style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
+
+

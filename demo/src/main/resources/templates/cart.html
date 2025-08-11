@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Cart</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: #0f1a2e;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    
+    .nav-header {
+      background-color: #16213e;
+      padding: 15px 0;
+      text-align: center;
+    }
+
+    .nav-header ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .nav-header ul li {
+      display: inline;
+      margin: 0 15px;
+    }
+
+    .nav-header ul li a {
+      text-decoration: none;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    .nav-header ul li a:hover {
+      color: #66fcf1;
+    }
+
+    
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      background: #16213e;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    }
+
+    h1 {
+      font-size: 28px;
+      color: #66fcf1;
+      margin-bottom: 15px;
+    }
+
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    table, th, td {
+      border: 1px solid #0f3460;
+    }
+
+    th, td {
+      padding: 16px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    th {
+      background: #0f3460;
+      color: #ffffff;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    tr:nth-child(even) {
+      background: #1a2a4a;
+    }
+
+    tr:hover {
+      background: #223b6d;
+    }
+
+    
+    .quantity-input {
+      width: 60px;
+      padding: 8px;
+      text-align: center;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .update-btn {
+      background-color: #ffc107;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .update-btn:hover {
+      background-color: #e0a800;
+    }
+
+    .remove-btn {
+      background-color: #ff4d4d;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .remove-btn:hover {
+      background-color: #cc0000;
+    }
+
+    .checkout-btn {
+      background-color: #45a29e;
+      color: #0b0c10;
+      font-weight: bold;
+      font-size: 20px;
+      width: 100%;
+      padding: 16px;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+
+    .checkout-btn:hover {
+      background-color: #66fcf1;
+      color: #16213e;
+    }
+
+    
+    footer {
+      background-color: #16213e;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      width: 100%;
+      color: #ffffff;
+      margin-top: 30px;
+    }
+
+    footer a {
+      color: #66fcf1;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+ 
+  <nav class="nav-header">
+    <ul>
+      <li><a th:href="@{/home}">Home</a></li>
+      <li><a th:href="@{/shop}">Products</a></li>
+      <li><a th:href="@{/orderHistory}">Your Order History</a></li>
+      <li><a th:href="@{/cart}">View Cart</a></li>
+      <li><a th:href="@{/login}">Log out</a></li>
+      <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <a th:href="@{/admin}">Admin Dashboard</a>
+      </li>
+    </ul>
+  </nav>
+ 
+  <div class="container">
+    <h1>Your wonderful Cart filled with amazing items!</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Price (in Euros)</th>
+          <th>Amount</th>
+          <th>Row item amount</th>
+          <th>Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="item : ${cartItems}">
+          <td th:text="${item.productName}">Product name</td>
+          <td th:text="'€' + ${#numbers.formatDecimal(item.price, 1, 2)}">€0.00</td>
+          
+          
+          <td>
+            <form th:action="@{/cart/update}" method="post" style="display: flex; justify-content: center; gap: 10px;">
+              <input type="hidden" name="productId" th:value="${item.productId}" />
+              <input type="number" name="quantity" th:value="${item.quantity}" min="1" class="quantity-input" />
+              <button type="submit" class="btn update-btn">Update!!</button>
+            </form>
+          </td>
+
+          <td th:text="'€' + ${#numbers.formatDecimal(item.price * item.quantity, 1, 2)}">€0.00</td>
+
+          <!-- nearly forgot to add in this part of project,,,,, -->
+          <td>
+            <a th:href="@{'/cart/remove/' + ${item.productId}}" class="btn remove-btn">Remove</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 style="margin-top: 20px;" th:text="'Total: €' + ${#numbers.formatDecimal(totalAmount, 1, 2)}">Total amount in cart: €0.00</h2>
+    
+    
+    <form th:action="@{/cart/checkout}" method="post">
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+      <button type="submit" class="btn checkout-btn">--Place Order--</button>
+    </form>
+  </div>
+
+  
+  <footer>
+    <p>Created by yours truly, <strong>Jamie Parke</strong></p>
+    <p>Phone num: <a href="tel:+353853438445">085 343 8445</a></p>
+    <p>Hit me up, Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
+    <p>
+      <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
+    </p>
+  </footer>
+
+</body>
+</html>
+
+

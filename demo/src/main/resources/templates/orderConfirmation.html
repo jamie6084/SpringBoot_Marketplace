@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Order Confirmation</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f1a2e;
+      margin: 0;
+      padding: 0;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .container {
+      background: #16213e;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      margin: 40px auto;
+      text-align: center;
+    }
+
+    h1 {
+      color: #66fcf1;
+      font-size: 28px;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 18px;
+      color: #eaeaea;
+      margin: 10px 0;
+    }
+
+    .order-id {
+      font-size: 20px;
+      font-weight: bold;
+      color: #66fcf1;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #45a29e;
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-size: 18px;
+      font-weight: bold;
+      text-decoration: none;
+      margin-top: 20px;
+      transition: 0.3s ease-in-out;
+    }
+
+    .btn:hover {
+      background-color: #66fcf1;
+      color: #16213e;
+    }
+
+    
+    footer {
+      background-color: #16213e;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+      width: 100%;
+      color: #ffffff;
+      margin-top: 30px;
+    }
+
+    footer a {
+      color: #66fcf1;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  
+  <nav class="nav-header">
+    <ul>
+      <li><a th:href="@{/home}">Home</a></li>
+      <li><a th:href="@{/shop}">Products</a></li>
+      <li><a th:href="@{/orderHistory}">Your Order History</a></li>
+      <li><a th:href="@{/cart}">View Cart</a></li>
+      <li><a th:href="@{/login}">Log out</a></li>
+      <li th:if="${#authorization.expression('hasRole(''ADMIN'')')}">
+        <a th:href="@{/admin}">Admin Dashboard</a>
+      </li>
+    </ul>
+  </nav>
+
+ 
+  <div class="container">
+    <h1>Thank you for your order, Cheers</h1>
+    <p>Fair play, your  order <span class="order-id" th:text="${param.orderId}">#OrderID</span> is now confirmed with us.</p>
+    <p>We hope you give us a nice review on google!!</p>
+    <a th:href="@{/shop}" class="btn">Gwan and treat yourself again.</a>
+  </div>
+
+  
+  <footer>
+    <p>Created by yours truly, <strong>Jamie Parke</strong></p>
+    <p>Phone num: <a href="tel:+353853438445">085 343 8445</a></p>
+    <p>Hit me up, Email: <a href="mailto:jamieparke99@gmail.com">jamieparke99@gmail.com</a></p>
+    <p>
+      <a href="#">Terms and Conditions</a> | <a href="#">Privacy Policy</a>
+    </p>
+  </footer>
+
+</body>
+</html>
